@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.domain
+package com.example.a203110026.fanianggita_pnm2.domain
 
-import com.example.android.devbyteviewer.util.smartTruncate
+import com.example.a203110026.fanianggita_pnm2.util.smartTruncate
 
 /**
  * Domain objects are plain Kotlin data classes that represent the things in our app. These are the

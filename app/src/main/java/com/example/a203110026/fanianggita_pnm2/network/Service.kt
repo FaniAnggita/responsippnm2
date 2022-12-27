@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.network
+package com.example.a203110026.fanianggita_pnm2.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET

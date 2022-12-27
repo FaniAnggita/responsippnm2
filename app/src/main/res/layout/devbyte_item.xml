@@ -24,11 +24,11 @@
 
         <variable
             name="video"
-            type="com.example.android.devbyteviewer.domain.DevByteVideo" />
+            type="com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo" />
 
         <variable
             name="videoCallback"
-            type="com.example.android.devbyteviewer.ui.VideoClick" />
+            type="com.example.a203110026.fanianggita_pnm2.ui.VideoClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -58,28 +58,21 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="8dp" />
 
-            <ImageView
-                android:id="@+id/play_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                app:layout_constraintStart_toStartOf="@+id/left_well"
-                app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
-                app:srcCompat="@drawable/ic_play_circle_outline_black_48dp" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@{video.title}"
-                android:textAlignment="viewStart"
+                android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/text_black"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/right_well"
-                app:layout_constraintStart_toEndOf="@+id/play_icon"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
                 tools:text="Video title" />
 
@@ -91,10 +84,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@{video.shortDescription}"
-                android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textColor="@color/text_light"
                 android:textSize="14sp"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@+id/right_well"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/title"
@@ -123,8 +116,10 @@
                 android:onClick="@{() -> videoCallback.onClick(video)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

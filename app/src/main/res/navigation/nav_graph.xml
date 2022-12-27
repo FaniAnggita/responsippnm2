@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/devByte"
-        android:name="com.example.android.devbyteviewer.ui.DevByteFragment"
+        android:name="com.example.a203110026.fanianggita_pnm2.ui.DevByteFragment"
         android:label="fragment_dev_byte"
         tools:layout="@layout/fragment_dev_byte" />
 </navigation>

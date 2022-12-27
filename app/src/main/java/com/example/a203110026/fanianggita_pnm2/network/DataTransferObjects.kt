@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.network
+package com.example.a203110026.fanianggita_pnm2.network
 
-import com.example.android.devbyteviewer.database.DatabaseVideo
-import com.example.android.devbyteviewer.domain.DevByteVideo
+import com.example.a203110026.fanianggita_pnm2.database.DatabaseVideo
+import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
 import com.squareup.moshi.JsonClass
 
 /**

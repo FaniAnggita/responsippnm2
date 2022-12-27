@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer
+package com.example.a203110026.fanianggita_pnm2.ui
 
-import android.app.Application
-import timber.log.Timber
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.a203110026.fanianggita_pnm2.R
 
 /**
- * Override application to setup background work via WorkManager
+ * This is a single activity application that uses the Navigation library. Content is displayed
+ * by Fragments.
  */
-class DevByteApplication : Application() {
+class DevByteActivity : AppCompatActivity() {
 
     /**
-     * onCreate is called before the first screen is shown to the user.
-     *
-     * Use it to setup any background tasks, running expensive setup operations in a background
-     * thread to avoid delaying app start.
+     * Called when the activity is starting.  This is where most initialization
+     * should go
      */
-    override fun onCreate() {
-        super.onCreate()
-        Timber.plant(Timber.DebugTree())
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_dev_byte_viewer)
     }
 }

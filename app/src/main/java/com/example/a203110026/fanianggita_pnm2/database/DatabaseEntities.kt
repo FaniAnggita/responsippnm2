@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.database
+package com.example.a203110026.fanianggita_pnm2.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.android.devbyteviewer.domain.DevByteVideo
+import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
 
 
 /**

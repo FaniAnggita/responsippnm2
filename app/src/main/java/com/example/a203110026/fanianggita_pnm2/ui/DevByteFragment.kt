@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.ui
+package com.example.a203110026.fanianggita_pnm2.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -30,11 +30,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.devbyteviewer.R
-import com.example.android.devbyteviewer.databinding.DevbyteItemBinding
-import com.example.android.devbyteviewer.databinding.FragmentDevByteBinding
-import com.example.android.devbyteviewer.domain.DevByteVideo
-import com.example.android.devbyteviewer.viewmodels.DevByteViewModel
+import com.example.a203110026.fanianggita_pnm2.R
+import com.example.a203110026.fanianggita_pnm2.databinding.DevbyteItemBinding
+import com.example.a203110026.fanianggita_pnm2.databinding.FragmentDevByteBinding
+import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
+import com.example.a203110026.fanianggita_pnm2.viewmodels.DevByteViewModel
 
 /**
  * Show a list of DevBytes on screen.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.devbyteviewer.util
+package com.example.a203110026.fanianggita_pnm2.util
 
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
