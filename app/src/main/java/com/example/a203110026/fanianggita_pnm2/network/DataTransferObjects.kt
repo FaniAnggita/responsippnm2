@@ -1,23 +1,7 @@
-/*
- * Copyright (C) 2019 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.a203110026.fanianggita_pnm2.network
 
 import com.example.a203110026.fanianggita_pnm2.database.DatabaseVideo
-import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
+import com.example.a203110026.fanianggita_pnm2.domain.CarModel
 import com.squareup.moshi.JsonClass
 
 /**
@@ -55,9 +39,9 @@ data class NetworkVideo(
 /**
  * Convert Network results to database objects
  */
-fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
+fun NetworkVideoContainer.asDomainModel(): List<CarModel> {
     return data.map {
-        DevByteVideo(
+        CarModel(
                 title = it.title,
                 description = it.description,
                 image_url_tumbnail = it.image_url_tumbnail,

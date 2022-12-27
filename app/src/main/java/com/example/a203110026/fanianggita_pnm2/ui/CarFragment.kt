@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2019 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.a203110026.fanianggita_pnm2.ui
 
 import android.content.Intent
@@ -33,25 +17,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a203110026.fanianggita_pnm2.R
 import com.example.a203110026.fanianggita_pnm2.databinding.DevbyteItemBinding
 import com.example.a203110026.fanianggita_pnm2.databinding.FragmentDevByteBinding
-import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
-import com.example.a203110026.fanianggita_pnm2.viewmodels.DevByteViewModel
+import com.example.a203110026.fanianggita_pnm2.domain.CarModel
+import com.example.a203110026.fanianggita_pnm2.viewmodels.CarViewModel
 
 /**
  * Show a list of DevBytes on screen.
  */
-class DevByteFragment : Fragment() {
+class CarFragment : Fragment() {
 
     /**
      * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
      * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
      * do in this Fragment.
      */
-    private val viewModel: DevByteViewModel by lazy {
+    private val viewModel: CarViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
-                .get(DevByteViewModel::class.java)
+        ViewModelProvider(this, CarViewModel.Factory(activity.application))
+                .get(CarViewModel::class.java)
     }
 
     /**
@@ -67,7 +51,7 @@ class DevByteFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
+        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<CarModel>> { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
@@ -146,10 +130,10 @@ class DevByteFragment : Fragment() {
     /**
      * Helper method to generate YouTube app links
      */
-    private val DevByteVideo.launchUri: Uri
+    private val CarModel.launchUri: Uri
         get() {
             val httpUri = Uri.parse(image_url_tumbnail)
-            return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
+            return httpUri
         }
 }
 
@@ -157,13 +141,13 @@ class DevByteFragment : Fragment() {
  * Click listener for Videos. By giving the block a name it helps a reader understand what it does.
  *
  */
-class VideoClick(val block: (DevByteVideo) -> Unit) {
+class VideoClick(val block: (CarModel) -> Unit) {
     /**
      * Called when a video is clicked
      *
      * @param video the video that was clicked
      */
-    fun onClick(video: DevByteVideo) = block(video)
+    fun onClick(video: CarModel) = block(video)
 }
 
 /**
@@ -174,7 +158,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
     /**
      * The videos that our Adapter will show
      */
-    var videos: List<DevByteVideo> = emptyList()
+    var videos: List<CarModel> = emptyList()
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.

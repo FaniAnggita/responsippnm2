@@ -3,10 +3,7 @@ package com.example.a203110026.fanianggita_pnm2
 import android.app.Application
 import timber.log.Timber
 
-/**
- * Override application to setup background work via WorkManager
- */
-class DevByteApplication : Application() {
+class CarApplication : Application() {
 
     /**
      * onCreate is called before the first screen is shown to the user.

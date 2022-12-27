@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.DevByteFragment">
+    tools:context=".ui.CarFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.a203110026.fanianggita_pnm2.viewmodels.DevByteViewModel" />
+            type="com.example.a203110026.fanianggita_pnm2.viewmodels.CarViewModel" />
     </data>
 
     <FrameLayout
@@ -21,10 +21,7 @@
             android:layout_height="wrap_content"
             app:isNetworkError = "@{safeUnbox(viewModel.eventNetworkError)}"
             app:playlist = "@{viewModel.playlist}"
-
-
-
-        android:layout_gravity="center" />
+            android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

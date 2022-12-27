@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 import java.io.IOException
 
 /**
- * DevByteViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
+ * CarViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
  * allows data to survive configuration changes such as screen rotations. In addition, background
  * work such as fetching network results can continue through configuration changes and deliver
  * results after the new Fragment or Activity is available.
@@ -22,7 +22,7 @@ import java.io.IOException
  * reference to applications across rotation since Application is never recreated during actiivty
  * or fragment lifecycle events.
  */
-class DevByteViewModel(application: Application) : AndroidViewModel(application) {
+class CarViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * The data source this ViewModel will fetch results from.
@@ -94,13 +94,13 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Factory for constructing DevByteViewModel with parameter
+     * Factory for constructing CarViewModel with parameter
      */
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(CarViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return DevByteViewModel(app) as T
+                return CarViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
         }

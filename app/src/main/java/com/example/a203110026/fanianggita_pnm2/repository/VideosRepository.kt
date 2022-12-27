@@ -20,8 +20,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.a203110026.fanianggita_pnm2.database.VideosDatabase
 import com.example.a203110026.fanianggita_pnm2.database.asDomainModel
-import com.example.a203110026.fanianggita_pnm2.domain.DevByteVideo
-import com.example.a203110026.fanianggita_pnm2.network.DevByteNetwork
+import com.example.a203110026.fanianggita_pnm2.domain.CarModel
+import com.example.a203110026.fanianggita_pnm2.network.CarNetwork
 import com.example.a203110026.fanianggita_pnm2.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,7 +32,7 @@ import timber.log.Timber
  */
 class VideosRepository(private val database: VideosDatabase) {
 
-    val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()) {
+    val videos: LiveData<List<CarModel>> = Transformations.map(database.carDao.getVideos()) {
         it.asDomainModel()
     }
 
@@ -47,8 +47,8 @@ class VideosRepository(private val database: VideosDatabase) {
     suspend fun refreshVideos() {
         withContext(Dispatchers.IO) {
             Timber.d("refresh videos is called");
-            val playlist = DevByteNetwork.devbytes.getPlaylist()
-            database.videoDao.insertAll(playlist.asDatabaseModel())
+            val playlist = CarNetwork.devbytes.getPlaylist()
+            database.carDao.insertAll(playlist.asDatabaseModel())
         }
     }
 

@@ -24,7 +24,7 @@ import com.example.a203110026.fanianggita_pnm2.R
  * This is a single activity application that uses the Navigation library. Content is displayed
  * by Fragments.
  */
-class DevByteActivity : AppCompatActivity() {
+class CarActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting.  This is where most initialization
