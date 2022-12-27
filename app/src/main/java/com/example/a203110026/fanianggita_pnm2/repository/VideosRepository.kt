@@ -27,27 +27,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-/**
- * Repository for fetching devbyte videos from the network and storing them on disk
- */
+// TODO 6: Kelas Repositori untuk proses menyimpan data dari API ke ROOM DB
 class VideosRepository(private val database: VideosDatabase) {
 
+    // Menginisialisasi list CarModel menjadi hasil mapping dari database
     val videos: LiveData<List<CarModel>> = Transformations.map(database.carDao.getVideos()) {
         it.asDomainModel()
     }
 
-    /**
-     * Refresh the videos stored in the offline cache.
-     *
-     * This function uses the IO dispatcher to ensure the database insert database operation
-     * happens on the IO dispatcher. By switching to the IO dispatcher using `withContext` this
-     * function is now safe to call from any thread including the Main thread.
-     *
-     */
+    // Untuk proses refresh data yang disimpan di cache offline
     suspend fun refreshVideos() {
         withContext(Dispatchers.IO) {
-            Timber.d("refresh videos is called");
+            Timber.d("refresh berhasil!")
             val playlist = CarNetwork.devbytes.getPlaylist()
+            // Insert data ke database
             database.carDao.insertAll(playlist.asDatabaseModel())
         }
     }
