@@ -20,16 +20,10 @@ import com.example.a203110026.fanianggita_pnm2.databinding.FragmentDevByteBindin
 import com.example.a203110026.fanianggita_pnm2.domain.CarModel
 import com.example.a203110026.fanianggita_pnm2.viewmodels.CarViewModel
 
-/**
- * Show a list of DevBytes on screen.
- */
+// TODO 9: Kelas Menampilkan list data ke fragment
 class CarFragment : Fragment() {
 
-    /**
-     * One way to delay creation of the viewModel until an appropriate lifecycle method is to use
-     * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
-     * do in this Fragment.
-     */
+    // mendelegasikan list data ke UI
     private val viewModel: CarViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
@@ -38,17 +32,10 @@ class CarFragment : Fragment() {
                 .get(CarViewModel::class.java)
     }
 
-    /**
-     * RecyclerView Adapter for converting a list of Video to cards.
-     */
+    //    Bagian recycle view untuk mengirimkan list data ke cards
     private var viewModelAdapter: DevByteAdapter? = null
 
-    /**
-     * Called immediately after onCreateView() has returned, and fragment's
-     * view hierarchy has been created. It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.
-     */
+    // onCreateView() dipanggil saat fragment sudah siap membaca sebuah layout.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<CarModel>> { videos ->
@@ -58,22 +45,8 @@ class CarFragment : Fragment() {
         })
     }
 
-    /**
-     * Called to have the fragment instantiate its user interface view.
-     *
-     * <p>If you return a View from here, you will later be called in
-     * {@link #onDestroyView} when the view is being released.
-     *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return Return the View for the fragment's UI.
-     */
+
+    // onCreate() diapnggil saat sebuah fragment dibuat (objeknya di memori).
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
@@ -81,35 +54,35 @@ class CarFragment : Fragment() {
                 R.layout.fragment_dev_byte,
                 container,
                 false)
-        // Set the lifecycleOwner so DataBinding can observe LiveData
+
+        // variabel untuk binding ke view
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.viewModel = viewModel
 
+        // Jika gambar diklik, maka akan membuka sebuah URL dari gambar tersebut
         viewModelAdapter = DevByteAdapter(VideoClick {
-            // When a video is clicked this block or lambda will be called by DevByteAdapter
 
-            // context is not around, we can safely discard this click since the Fragment is no
-            // longer on the screen
             val packageManager = context?.packageManager ?: return@VideoClick
 
-            // Try to generate a direct intent to the YouTube app
+            // untuk inten ke web browser
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
             if(intent.resolveActivity(packageManager) == null) {
-                // YouTube app isn't found, use the web url
-                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.image_url_tumbnail))
+                   intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.image_url_tumbnail))
             }
 
             startActivity(intent)
         })
 
+        // membaca sebuah recycle view
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
+            // set adapter dengan videomodel adapter
             adapter = viewModelAdapter
         }
 
 
-        // Observer for the network error.
+        // viewmodel untuk membaca kesalahan jaringan
         viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
@@ -117,19 +90,15 @@ class CarFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * Method for displaying a Toast error message for network errors.
-     */
+        //    Menampilkan toast jika jaringan error
     private fun onNetworkError() {
         if(!viewModel.isNetworkErrorShown.value!!) {
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Kesalahan Jaringan!", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
     }
 
-    /**
-     * Helper method to generate YouTube app links
-     */
+    //    Mengamblikan uri pada data gambar
     private val CarModel.launchUri: Uri
         get() {
             val httpUri = Uri.parse(image_url_tumbnail)
@@ -137,41 +106,22 @@ class CarFragment : Fragment() {
         }
 }
 
-/**
- * Click listener for Videos. By giving the block a name it helps a reader understand what it does.
- *
- */
+
 class VideoClick(val block: (CarModel) -> Unit) {
-    /**
-     * Called when a video is clicked
-     *
-     * @param video the video that was clicked
-     */
-    fun onClick(video: CarModel) = block(video)
+       fun onClick(video: CarModel) = block(video)
 }
 
-/**
- * RecyclerView Adapter for setting up data binding on the items in the list.
- */
+// Adaptor RecyclerView untuk menyiapkan pengikatan data pada item dalam daftar.
 class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
-    /**
-     * The videos that our Adapter will show
-     */
+//    Menampilkan adapter dari CarModel
     var videos: List<CarModel> = emptyList()
         set(value) {
             field = value
-            // For an extra challenge, update this to use the paging library.
-
-            // Notify any registered observers that the data set has changed. This will cause every
-            // element in our RecyclerView to be invalidated.
             notifyDataSetChanged()
         }
 
-    /**
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
-     * an item.
-     */
+    // Dipanggil saat RecyclerView membutuhkan viewholder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
         val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -181,13 +131,10 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
         return DevByteViewHolder(withDataBinding)
     }
 
+    // mengembalikan banyak data yang akan ditampilkan
     override fun getItemCount() = videos.size
 
-    /**
-     * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
-     * position.
-     */
+    //    Memperbarui view holder
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.video = videos[position]
@@ -197,9 +144,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
 
 }
 
-/**
- * ViewHolder for DevByte items. All work is done by data binding.
- */
+// ViewHolder untuk item data
 class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {

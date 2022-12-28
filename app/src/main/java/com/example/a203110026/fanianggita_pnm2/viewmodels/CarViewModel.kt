@@ -12,65 +12,34 @@ import com.example.a203110026.fanianggita_pnm2.repository.VideosRepository
 import kotlinx.coroutines.*
 import java.io.IOException
 
-/**
- * CarViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
- * allows data to survive configuration changes such as screen rotations. In addition, background
- * work such as fetching network results can continue through configuration changes and deliver
- * results after the new Fragment or Activity is available.
- *
- * @param application The application that this viewmodel is attached to, it's safe to hold a
- * reference to applications across rotation since Application is never recreated during actiivty
- * or fragment lifecycle events.
- */
+// TODO 7: Kelas View Model untuk mengolah data ke UI
 class CarViewModel(application: Application) : AndroidViewModel(application) {
 
-    /**
-     * The data source this ViewModel will fetch results from.
-     */
+    // Mengambil list data dari repositori
     private val videosRepository = VideosRepository(getDatabase(application))
 
-    /**
-     * A playlist of videos displayed on the screen.
-     */
+    //untuk menampilkan list data ke UI
     val playlist = videosRepository.videos
 
-    /**
-     * Event triggered for network error. This is private to avoid exposing a
-     * way to set this value to observers.
-     */
+    //    Variabel untuk mengembalikan nilai boolean (true/ false) apabila terjadi kesalahan jaringan.
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
-    /**
-     * Event triggered for network error. Views should use this to get access
-     * to the data.
-     */
+    //    Mengembalikan data kesalahan jaringan
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    /**
-     * Flag to display the error message. This is private to avoid exposing a
-     * way to set this value to observers.
-     */
     private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
-    /**
-     * Flag to display the error message. Views should use this to get access
-     * to the data.
-     */
+    // Mengembalikan pesan error jaringan
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
-    /**
-     * init{} is called immediately when this ViewModel is created.
-     */
+    // Init{} langsung dipanggil saat ViewModel ini dibuat.
     init {
         refreshDataFromRepository()
     }
 
-    /**
-     * Refresh data from the repository. Use a coroutine launch to run in a
-     * background thread.
-     */
+    // refresh data dari repositori menggunakan coroutine yang berjalan di background aplikasi
     private fun refreshDataFromRepository() {
         viewModelScope.launch {
             try {
@@ -79,22 +48,22 @@ class CarViewModel(application: Application) : AndroidViewModel(application) {
                 _isNetworkErrorShown.value = false
 
             } catch (networkError: IOException) {
-                // Show a Toast error message and hide the progress bar.
+                // Jika network error maka akan menampilkan kesalahan jariangan
                 if(playlist.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }
         }
     }
 
-    /**
-     * Resets the network error flag.
-     */
+    // reset flag kesalahan jariangan
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
     }
 
-    /**
-     * Factory for constructing CarViewModel with parameter
+    /*
+    Factory ViewModel yang sama dapat digunakan untuk beberapa ViewModel saat berbagi dependensi.
+    Jika class ViewModel menerima dependensi dalam konstruktornya, sediakan factory yang mengimplementasikan antarmuka ViewModelProvider.Factory.
+    fungsi create(Class<T>, CreationExtras) untuk memberikan instance ViewModel baru.
      */
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

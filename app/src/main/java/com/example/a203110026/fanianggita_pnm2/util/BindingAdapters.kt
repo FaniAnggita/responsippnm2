@@ -5,9 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-/**
- * Binding adapter used to hide the spinner once data is available.
- */
+// TODO 8: Kelas Binding terhadap adapter
 @BindingAdapter("isNetworkError", "playlist")
 fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
     view.visibility = if (playlist != null) View.GONE else View.VISIBLE
@@ -16,10 +14,7 @@ fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
         view.visibility = View.GONE
     }
 }
-
-/**
- * Binding adapter used to display images from URL using Glide
- */
+// Binding adapter digunakan untuk menampilkan gambar dari URL menggunakan Glide.
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(imageView.context).load(url).into(imageView)

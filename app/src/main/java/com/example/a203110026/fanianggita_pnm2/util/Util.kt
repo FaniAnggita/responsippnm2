@@ -2,9 +2,6 @@ package com.example.a203110026.fanianggita_pnm2.util
 
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
-/**
- * Truncate long text with a preference for word boundaries and without trailing punctuation.
- */
 fun String.smartTruncate(length: Int): String {
     val words = split(" ")
     var added = 0
