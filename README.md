@@ -1,4 +1,4 @@
-203110026 | FANI ANGGITA | RPLA | UTDI
+203110026 | FANI ANGGITA | RPLA | UTDI <br>
 Materi yang diterapkan:
 1. Arsitektur MVVM (Model, View, ViewModel)
 2. Room Database (DAO, Entity, SQLite)
